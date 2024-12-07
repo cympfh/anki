@@ -23,9 +23,9 @@ def load_deck(url: str):
 
 
 @streamlit.cache_data
-def get_keys(data, randomize: bool):
+def get_keys(data, shuffle: bool):
     keys = list(data.keys())
-    if randomize:
+    if shuffle:
         random.shuffle(keys)
     return keys
 
@@ -53,10 +53,10 @@ if data:
     streamlit.success(f"{len(data)} 単語の読み込みに成功しました！")
 
     # YAMLデータの単語帳を作成
-    randomize = streamlit.toggle("Randomize", value=True)
-    rev = streamlit.toggle("Reverse order", value=False)
+    shuffle = streamlit.toggle("shuffle", value=True)
+    rev = streamlit.toggle("reversed", value=False)
 
-    keys = get_keys(data, randomize)
+    keys = get_keys(data, shuffle)
     index = streamlit.number_input(
         "page", value=0, min_value=0, max_value=len(keys) - 1
     )
